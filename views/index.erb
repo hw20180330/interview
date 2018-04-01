@@ -6,13 +6,14 @@
       </h1>
     </div>
     <div class="col-md-offset-2 col-md-8">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
-          <tr class="bg-info">
+          <tr class="bg-primary">
             <th scope="col">#</th>
             <th scope="col">Latitude</th>
             <th scope="col">Longitude</th>
             <th scope="col">Address</th>
+            <th scope="col">Miles to White House</th>
           </tr>
         </thead>
         <tbody>
@@ -25,15 +26,38 @@
               [35.109937, -89.959983]
             ] 
           %>
-          <% coordinates.each_with_index do |coord, i| %>
-            <tr class="<%= i % 2 == 0 ? 'bg-success' : 'bg-danger' %>">
+          
+          <%# Set up White House address object%>
+          <% whitehouse = Address.new %>
+          <% whitehouse.geocode_with_full_address('1600 Pennsylvania Avenue NW Washington, D.C. 20500') %>
+
+          <%# Get distance from each set of coordinates to White House %>  
+          <% locations = [] %>
+          <% coordinates.each do |coord| %>
+            <% address = Address.new %>
+            <% address.reverse_geocode(coord[0], coord[1]) %>
+            <% address.distance_between([address.lat, address.lng], whitehouse.coordinates) %>
+            <% locations << address %>
+          <% end %>
+
+          <%# Sort by distance to White House %>
+          <% locations = locations.sort_by{ |loc| loc.miles_to_whitehouse } %>
+
+          <%# List locations %>
+          <% locations.each_with_index do |loc, i| %>
+            <tr class="<%= i % 2 == 0 ? 'bg-success' : 'bg-warning' %>">
               <th scope="row"><%= i + 1 %></th>
-              <td><%= coord[0] %></td>
-              <td><%= coord[1] %></td>
               <td>
-                <% address = Address.new %>
-                <% address.reverse_geocode(coord[0], coord[1]) %>
-                <%= address.full_address %>
+                <%= loc.lat %>
+              </td>
+              <td>
+                <%= loc.lng %>
+              </td>
+              <td>
+                <%= loc.full_address %>
+              </td>
+              <td> 
+                <%= loc.miles_to_whitehouse.round(2)  %>
               </td>
             </tr>
           <% end %>
