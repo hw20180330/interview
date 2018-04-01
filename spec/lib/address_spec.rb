@@ -2,8 +2,8 @@ RSpec.describe Address do
   let(:full_address) { '1600 Pennsylvania Avenue NW Washington, D.C. 20500 U.S.' }
   let(:lat) { 40.181306 }
   let(:lng) { -80.265949 }
-  let(:empty_address) {''}
-  let(:bad_coord) {'abc'}
+  let(:empty_address) { '' }
+  let(:bad_coord) { 'abc' }
 
   subject(:address) { described_class.new }
 
