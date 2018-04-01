@@ -3,3 +3,10 @@
 .p25 {
     padding: 25px;
 }
+
+body {
+    margin: 0;
+    background: url('https://geology.com/world/satellite-image-of-the-united-states-of-america.jpg');
+    background-size: cover;
+    background-repeat:no-repeat;
+}
