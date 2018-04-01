@@ -6,9 +6,9 @@
       </h1>
     </div>
     <div class="col-md-offset-2 col-md-8">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
-          <tr class="bg-info">
+          <tr class="bg-primary">
             <th scope="col">#</th>
             <th scope="col">Latitude</th>
             <th scope="col">Longitude</th>
@@ -45,7 +45,7 @@
 
           <%# List locations %>
           <% locations.each_with_index do |loc, i| %>
-            <tr class="<%= i % 2 == 0 ? 'bg-success' : 'bg-danger' %>">
+            <tr class="<%= i % 2 == 0 ? 'bg-success' : 'bg-warning' %>">
               <th scope="row"><%= i + 1 %></th>
               <td>
                 <%= loc.lat %>
