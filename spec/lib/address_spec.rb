@@ -154,17 +154,10 @@ RSpec.describe Address do
   end
 
   describe 'set_lat_and_lng_values' do
-    let :data do 
-      {
-        "latt" => 120, 
-        "longt" => 80
-      } 
-    end
-
     it 'sets lat and lng values on address obj' do
-      address.set_lat_and_lng_values(data)
-      expect(address.lat).to eq(data["latt"])
-      expect(address.lng).to eq(data["longt"])
+      address.set_lat_and_lng_values(lat, lng)
+      expect(address.lat).to eq(lat)
+      expect(address.lng).to eq(lng)
     end
   end
 
