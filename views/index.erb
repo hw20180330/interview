@@ -5,5 +5,40 @@
         Bootstrapped!
       </h1>
     </div>
+    <div class="col-md-offset-2 col-md-8">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% 
+            coordinates = [
+              [61.582195, -149.443512],
+              [44.775211, -68.774184],
+              [25.891297, -97.393349],
+              [45.787839, -108.502110],
+              [35.109937, -89.959983]
+            ] 
+          %>
+          <% coordinates.each_with_index do |coord, i| %>
+            <tr>
+              <th scope="row"><%= i + 1 %></th>
+              <td><%= coord[0] %></td>
+              <td><%= coord[1] %></td>
+              <td>
+                <% address = Address.new %>
+                <% address.reverse_geocode(coord[0], coord[1]) %>
+                <%= address.full_address %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
